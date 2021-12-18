@@ -71,35 +71,31 @@ async function run() {
             res.json(service)
         })
         // post
-        app.post('/services', async (req, res) => {
-            const service = req.body
-            console.log('hit', service)
-            const result = await servicesCollection.insertOne(service);
-            console.log(result);
-            res.json(result)
-        })
+        // app.post('/services', async (req, res) => {
+        //     const service = req.body
+        //     console.log('hit', service)
+        //     const result = await servicesCollection.insertOne(service);
+        //     console.log(result);
+        //     res.json(result)
+        // })
 
 
 
 
         app.get("/services", async (req, res) => {
+            console.log('jj')
             const cursor = servicesCollection.find({});
             const result = await cursor.toArray();
+
             res.json(result);
         })
 
 
 
-
-
-
-
-
-
-
         app.post('/services', async (req, res) => {
+            console.log("hit the post")
             const name = req.body.name;
-            const pic = req.files.image;
+            const pic = req.files.img;
             const price = req.body.price;
             const desc = req.body.desc;
             const picData = pic.data;
@@ -113,6 +109,7 @@ async function run() {
                 desc,
                 image: imageBuffer
             }
+            console.log(service)
             const result = await servicesCollection.insertOne(service);
             // console.log(result)
             res.json(result)
